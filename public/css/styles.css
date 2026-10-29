@@ -1,0 +1,209 @@
+﻿/* Paleta y lenguaje visual adaptados de itsnotviolent.com/scenarios/4.
+   CSS específico para esta interfaz; todas las animaciones se ejecutan localmente. */
+@font-face {
+    font-family: "Sporting Grotesque";
+    src: url("/fonts/SportingGrotesque-Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    color-scheme: light;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #231f20;
+    background: #c75e5e;
+    --tinta: #231f20;
+    --coral: #f77171;
+    --fondo: #c75e5e;
+    --rosa: #ffbecf;
+    --amarillo: #f7c749;
+    --verde: #35af60;
+    --papel: #f6f6f6;
+    --display: "Sporting Grotesque", Arial, sans-serif;
+    --curva: cubic-bezier(.35, .755, .42, .95);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { min-width: 280px; }
+body { margin: 0; min-height: 100vh; min-height: 100dvh; }
+button, input { font: inherit; }
+button { color: inherit; cursor: pointer; }
+button:disabled { cursor: wait; }
+:focus-visible { outline: 3px solid var(--tinta); outline-offset: 5px; }
+
+.ventana {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 700px;
+    overflow: hidden;
+}
+
+.barra-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    gap: 24px;
+    min-height: 94px;
+    margin: 0 32px;
+    padding: 16px 0;
+    border-bottom: 2px solid var(--tinta);
+}
+
+.marca { display: flex; align-items: center; gap: 12px; font: 700 14px/1.15 var(--display); letter-spacing: -.06em; }
+.marca-icono { display: grid; place-items: center; width: 48px; height: 48px; border: 2px solid var(--tinta); border-radius: 50%; background: var(--rosa); transform: rotate(-10deg); }
+.lema-cabecera { margin: 0; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+.control-movimiento { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 40px; padding: 8px 15px; border: 1.5px solid var(--tinta); border-radius: 30px; background: transparent; font-size: 11px; }
+.control-movimiento:hover { background: var(--rosa); }
+[data-icono-pausa] { font-size: 17px; line-height: 1; }
+
+/* Los dos márgenes laterales comparten el ancho de la antigua columna izquierda.
+   Dos separaciones de la mitad conservan el ancho original de la caja. */
+.escenario { --separacion: clamp(24px, 3vw, 56px); position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .425fr) minmax(0, 1.15fr) minmax(0, .425fr); gap: calc(var(--separacion) / 2); flex: 1; min-height: 0; padding: 28px 32px 20px; }
+.sticker { position: absolute; right: 32px; bottom: 40px; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 144px; height: 144px; padding: 20px; background: var(--verde); clip-path: polygon(50% 0, 59% 10%, 75% 5%, 78% 20%, 94% 25%, 90% 40%, 100% 50%, 90% 60%, 94% 75%, 78% 80%, 75% 95%, 59% 90%, 50% 100%, 41% 90%, 25% 95%, 22% 80%, 6% 75%, 10% 60%, 0 50%, 10% 40%, 6% 25%, 22% 20%, 25% 5%, 41% 10%); text-align: center; pointer-events: none; animation: sticker-flotar 5s ease-in-out infinite; }
+.sticker > span:first-child { font: 700 15px/1.5 var(--display); letter-spacing: -.06em; }
+.sticker-estrella { font-size: 28px; line-height: 1.2; }
+.cinta { position: absolute; top: 50%; right: -80px; bottom: auto; left: -80px; z-index: 0; overflow: hidden; padding: 22px 0; border-top: 2px solid #944343; border-bottom: 2px solid #944343; color: #944343; transform: translateY(-50%) rotate(-6deg); pointer-events: none; }
+.cinta-track { display: flex; width: max-content; animation: cinta-correr 16s linear infinite; }
+.cinta-track > span { flex-shrink: 0; font: 700 clamp(54px, 6vw, 96px)/1.2 var(--display); letter-spacing: -.06em; white-space: nowrap; }
+
+.conversacion { position: relative; grid-column: 2; grid-row: 1; z-index: 4; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; border: 2px solid var(--tinta); border-radius: 24px; background: var(--papel); box-shadow: 8px 8px 0 var(--tinta); animation: entrar-conversacion .7s var(--curva) .15s both; }
+.cabecera-conversacion { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 16px; min-height: 76px; padding: 16px 24px; border-bottom: 2px solid var(--tinta); background: var(--rosa); }
+.titulo-bandeja { display: flex; align-items: center; gap: 10px; }
+.punto-bandeja { width: 12px; height: 12px; flex-shrink: 0; border: 2px solid var(--tinta); border-radius: 50%; background: var(--verde); }
+h2 { margin: 0; font: 700 12px/1.5 var(--display); letter-spacing: -.04em; }
+.usuario { display: flex; flex-direction: column; flex-shrink: 0; gap: 3px; margin: 0; padding: 0 0 0 16px; border-left: 1px solid var(--tinta); }
+.usuario > span { font-size: 8px; letter-spacing: .1em; }
+.usuario > strong { font-size: 12px; }
+.compositor { flex-shrink: 0; padding: 22px 24px 18px; }
+.formulario label { display: block; margin-bottom: 14px; font: 700 13px/1.5 var(--display); letter-spacing: -.04em; }
+.fila-formulario { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+.formulario input { width: 100%; min-width: 0; min-height: 54px; padding: 14px 18px; border: 2px solid var(--tinta); border-radius: 30px; background: #fff; color: var(--tinta); font-size: 14px; transition: background .25s var(--curva), box-shadow .25s var(--curva); }
+.formulario input::placeholder { color: #686868; font-size: 10px; opacity: 1; letter-spacing: .035em; }
+.formulario input:focus::placeholder { opacity: 0; }
+.formulario input:focus { outline: 0; background: #fff8dc; box-shadow: 0 0 0 4px var(--amarillo); }
+.formulario input[aria-invalid="true"] { background: #ffe4e4; }
+.boton-enviar { display: inline-flex; align-items: center; justify-content: center; gap: 16px; min-height: 54px; padding: 6px 6px 6px 20px; border: 2px solid var(--tinta); border-radius: 30px; background: var(--rosa); font-size: 11px; font-weight: 700; transition: transform .3s var(--curva), background .3s var(--curva); }
+.boton-enviar:hover { background: var(--amarillo); transform: rotate(-3deg) scale(1.025); }
+.boton-enviar:active { transform: scale(.97); }
+.boton-flecha { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--tinta); color: var(--rosa); font-size: 25px; font-weight: 400; transition: transform .3s var(--curva); }
+.boton-enviar:hover .boton-flecha { transform: rotate(45deg); }
+.boton-enviar:disabled { transform: none; opacity: .65; }
+.ayuda-formulario { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; color: #595556; font-size: 10px; line-height: 1.5; }
+.ayuda-formulario p { margin: 0; }
+[data-caracteres] { flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.error { margin: 12px 0 0; padding: 10px 12px; border: 1.5px solid var(--tinta); border-radius: 8px; background: var(--coral); font-size: 12px; line-height: 1.5; }
+.separador-mensajes { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; margin: 0 24px; padding: 12px 0; border-top: 1px solid #c9c6c6; border-bottom: 1px solid #c9c6c6; font-size: 9px; font-weight: 700; letter-spacing: .055em; }
+.contador { padding: 5px 9px; border: 1px solid var(--tinta); border-radius: 20px; background: var(--amarillo); font-size: 9px; }
+.caja-mensajes { flex: 1; min-height: 0; padding: 24px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--tinta) var(--papel); }
+.caja-mensajes:focus-visible { outline-offset: -6px; }
+.mensajes { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; margin: 0; padding: 0; list-style: none; }
+.mensaje { display: flex; align-items: flex-end; gap: 10px; max-width: 90%; min-width: 0; }
+.mensaje-avatar { display: grid; place-items: center; flex-shrink: 0; min-width: 32px; height: 32px; padding: 5px; border: 1.5px solid var(--tinta); border-radius: 50%; background: var(--coral); font-size: 11px; font-weight: 700; }
+.mensaje-contenido { position: relative; min-width: 0; padding: 16px 18px; border: 1.5px solid var(--tinta); border-radius: 18px 18px 18px 4px; background: var(--amarillo); overflow-wrap: anywhere; }
+.mensaje-contenido::before { position: absolute; bottom: -1.5px; left: -7px; width: 10px; height: 12px; content: ""; border-bottom: 1.5px solid var(--tinta); background: inherit; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.mensaje:nth-child(even) { align-self: flex-end; flex-direction: row-reverse; }
+.mensaje:nth-child(even) .mensaje-contenido { border-radius: 18px 18px 4px 18px; background: var(--rosa); }
+.mensaje:nth-child(even) .mensaje-contenido::before { right: -7px; left: auto; transform: scaleX(-1); }
+.mensaje:nth-child(even) .mensaje-avatar { background: var(--verde); }
+.mensaje-titulo { display: block; margin-bottom: 8px; font-size: 9px; font-weight: 700; letter-spacing: .06em; }
+.mensaje p { margin: 0; font-size: 14px; line-height: 1.5; white-space: pre-wrap; }
+.mensaje-nuevo { transform-origin: bottom left; animation: aparecer-burbuja .5s var(--curva) both; }
+.mensaje-nuevo:nth-child(even) { transform-origin: bottom right; }
+.sin-mensajes { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; min-height: 230px; padding: 12px 0; text-align: center; }
+.ilustracion-vacia { position: relative; width: 140px; height: 94px; margin-bottom: 18px; }
+.burbuja-vacia { position: absolute; top: 10px; left: 0; display: flex; align-items: center; justify-content: center; gap: 9px; width: 104px; height: 62px; border: 2px solid var(--tinta); border-radius: 24px 24px 24px 0; background: var(--rosa); transform: rotate(-10deg); }
+.burbuja-vacia > span { width: 7px; height: 7px; border-radius: 50%; background: var(--tinta); animation: puntos-saltar .6s ease-in-out infinite alternate; }
+.burbuja-vacia > span:nth-child(2) { animation-delay: .2s; }
+.burbuja-vacia > span:nth-child(3) { animation-delay: .4s; }
+.saludo-vacio { position: absolute; right: 0; bottom: 0; padding: 11px 10px; border: 2px solid var(--tinta); border-radius: 18px 18px 0 18px; background: var(--amarillo); font: 700 11px/1.5 var(--display); transform: rotate(8deg); }
+.mini-estrella { position: absolute; right: 0; top: -15px; font-size: 42px; }
+.sin-mensajes > p { margin: 0 0 12px; font: 700 18px/1.5 var(--display); letter-spacing: -.06em; }
+.sin-mensajes > span { color: #595556; font-size: 11px; line-height: 1.7; }
+.pie-conversacion { display: flex; align-items: center; flex-shrink: 0; gap: 8px; min-height: 42px; padding: 10px 24px; border-top: 1px solid #c9c6c6; background: #efefef; }
+.indicador-estado { width: 7px; height: 7px; flex-shrink: 0; border: 1px solid var(--tinta); border-radius: 50%; background: var(--verde); }
+.estado-formulario { margin: 0; font-size: 10px; line-height: 1.5; }
+.estrella-pie { margin-left: auto; font-size: 22px; line-height: 1; }
+.conversacion.enviando .indicador-estado { background: var(--amarillo); animation: puntos-saltar .6s ease-in-out infinite alternate; }
+.pie-pagina { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 16px; min-height: 44px; margin: 0 32px; border-top: 1px solid var(--tinta); font-size: 9px; font-weight: 700; letter-spacing: .04em; }
+.pie-pagina > span:last-child > span { margin-left: 10px; font-size: 20px; }
+
+@keyframes entrar-conversacion { from { opacity: 0; transform: translateY(80px) rotate(2deg); } to { opacity: 1; transform: translateY(0) rotate(0); } }
+@keyframes aparecer-burbuja { from { opacity: 0; transform: translateY(20px) scale(.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes cinta-correr { to { transform: translateX(-50%); } }
+@keyframes sticker-flotar { 0%, 100% { transform: translateY(-6px) rotate(9deg); } 50% { transform: translateY(6px) rotate(-3deg); } }
+@keyframes puntos-saltar { to { transform: translateY(-4px); } }
+
+/* Pausa explícita y preferencia del sistema: el contenido siempre queda visible. */
+.movimiento-pausado *, .movimiento-pausado *::before, .movimiento-pausado *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+
+@media (min-width: 1700px) {
+    .escenario { --separacion: 70px; padding-right: 56px; padding-left: 56px; }
+    .barra-superior, .pie-pagina { margin-right: 56px; margin-left: 56px; }
+    .sticker { right: 56px; }
+    .cabecera-conversacion, .compositor, .caja-mensajes { padding-right: 36px; padding-left: 36px; }
+}
+
+@media (max-width: 1050px) {
+    .escenario { --separacion: 24px; grid-template-columns: minmax(0, .4fr) minmax(0, 1.2fr) minmax(0, .4fr); padding-right: 24px; padding-left: 24px; }
+    .barra-superior, .pie-pagina { margin-right: 24px; margin-left: 24px; }
+    .sticker { right: 24px; width: 116px; height: 116px; }
+    .sticker > span:first-child { font-size: 12px; }
+    .cabecera-conversacion, .compositor, .caja-mensajes { padding-right: 18px; padding-left: 18px; }
+    .separador-mensajes { margin-right: 18px; margin-left: 18px; }
+    h2 { font-size: 10px; }
+    .usuario { padding-left: 10px; }
+    .boton-enviar { gap: 8px; padding-left: 14px; }
+}
+
+@media (max-width: 760px) {
+    .ventana { height: auto; min-height: 100vh; min-height: 100dvh; overflow: clip; }
+    .barra-superior { min-height: 78px; margin: 0 18px; gap: 12px; }
+    .marca { gap: 8px; font-size: 10px; }
+    .marca-icono { width: 38px; height: 38px; }
+    .lema-cabecera { display: none; }
+    .control-movimiento { padding: 8px 10px; font-size: 9px; }
+    .escenario { display: flex; flex-direction: column; justify-content: center; gap: 0; flex: 1; padding: 24px 18px 140px; }
+    .sticker { right: 24px; bottom: 20px; width: 100px; height: 100px; }
+    .sticker > span:first-child { font-size: 10px; }
+    .sticker-estrella { font-size: 22px; }
+    .cinta { right: -35px; left: -35px; padding: 14px 0; }
+    .cinta-track > span { font-size: clamp(36px, 8vw, 54px); }
+    .conversacion { flex: none; width: 100%; height: max(520px, 68dvh); min-height: 520px; border-radius: 20px; box-shadow: 5px 5px 0 var(--tinta); }
+    .cabecera-conversacion { min-height: 66px; gap: 10px; }
+    .punto-bandeja { width: 9px; height: 9px; }
+    .titulo-bandeja { gap: 7px; }
+    .formulario label { font-size: 11px; }
+    .fila-formulario { gap: 8px; }
+    .formulario input { padding: 12px; }
+    .formulario input::placeholder { font-size: 9px; }
+    .boton-enviar { gap: 6px; padding-left: 12px; font-size: 9px; }
+    .boton-flecha { width: 30px; height: 30px; font-size: 22px; }
+    .ayuda-formulario { font-size: 9px; }
+    .sin-mensajes { min-height: 205px; }
+    .sin-mensajes > p { font-size: 15px; }
+    .mensaje { max-width: 96%; }
+    .mensaje-contenido { padding: 12px 14px; }
+    .mensaje p { font-size: 13px; }
+    .pie-pagina { min-height: 46px; margin: 0 18px; font-size: 8px; }
+    .pie-pagina > span:last-child { display: none; }
+}
+
+@media (max-width: 370px) {
+    .sticker { width: 80px; height: 80px; bottom: 20px; right: 18px; padding: 12px; }
+    .sticker > span:first-child { font-size: 8px; }
+    h2 { font-size: 9px; }
+    .usuario > strong { font-size: 10px; }
+    .fila-formulario { grid-template-columns: minmax(0, 1fr); }
+    .boton-enviar { justify-content: space-between; min-height: 42px; }
+    .sin-mensajes { min-height: 190px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

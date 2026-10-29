@@ -1,0 +1,40 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno y secretos locales
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Archivos generados
+coverage/
+dist/
+build/
+.cache/
+.npm/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Archivos de editores
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# Bases de datos locales
+*.sqlite
+*.sqlite3
+*.db
